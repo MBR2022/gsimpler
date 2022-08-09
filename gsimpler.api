@@ -19,7 +19,7 @@ type (
 		Status      string `json:"status"`
 	}
 	GetTodoRequest {
-		ID string `json:"id"`
+		ID string `path:"id"`
 	}
 )
 
@@ -28,9 +28,9 @@ type (
 )
 service gsimpler-api {
 	@handler CreateTodo
-	post /todo(CreateTodoRequest) returns(TodoResponse)
+	post /todo (CreateTodoRequest) returns(TodoResponse)
 	
 	@handler GetTodo
-	get /todo/:id(GetTodoRequest) returns(TodoResponse)
+	get /todo/:id (GetTodoRequest) returns(TodoResponse)
 	
 }

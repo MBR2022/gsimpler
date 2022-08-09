@@ -15,5 +15,5 @@ type TodoResponse struct {
 }
 
 type GetTodoRequest struct {
-	ID string `json:"id"`
+	ID string `path:"id"`
 }

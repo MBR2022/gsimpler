@@ -11,6 +11,7 @@ import (
 	"github.com/MBR2022/gosimpler/internal/types"
 	"github.com/MBR2022/gosimpler/mock"
 	"github.com/golang/mock/gomock"
+	"github.com/stretchr/testify/assert"
 )
 
 var (
@@ -53,10 +54,7 @@ func CreateTodoSuccess(l *logic.CreateTodoLogic, req *types.CreateTodoRequest) f
 		if err != nil {
 			t.Error(err)
 		}
-		if resp == nil {
-			t.Error("Response is nil")
-			return
-		}
+		assert.NotNil(t, resp)
 		if want, got := todoId, resp.ID; want != got {
 			t.Errorf("Want todo ID: %s, but got: %s", want, got)
 		}
@@ -66,9 +64,7 @@ func CreateTodoSuccess(l *logic.CreateTodoLogic, req *types.CreateTodoRequest) f
 func CreateTodoFailed(l *logic.CreateTodoLogic, req *types.CreateTodoRequest) func(t *testing.T) {
 	return func(t *testing.T) {
 		_, err := l.CreateTodo(req)
-		if err == nil {
-			t.Error("Want error is not nil")
-		}
+		assert.Error(t, err)
 		if want, got := store.ErrorTodoExist, err; want != got {
 			t.Errorf("Want Error: %s, but got %s", want, got)
 		}
